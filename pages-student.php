@@ -28,7 +28,7 @@ $users = getStudents();
                     ?>
                         <tr>
                             <td><?= $i; ?> </td>
-                            <td class="d-none d-xl-table-cell"><a href="/student.php"><?= $fullNameInitials ?></a></td>
+                            <td class="d-none d-xl-table-cell"><a href="/student.php?id=<?= $user['id_student']; ?>"><?= $fullNameInitials ?></a></td>
 
                             <td class="d-none d-xl-table-cell"><?= $user['telephone']; ?></td>
                             <td class="d-none d-md-table-cell"><?= $user['email']; ?></td>

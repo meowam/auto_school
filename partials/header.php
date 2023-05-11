@@ -18,9 +18,7 @@ if (isset($_SESSION["user_id"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/assets/img/icon.svg" />
-
     <title> Автошкола</title>
-
     <link href="/assets/css/vendors/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>

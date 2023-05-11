@@ -46,6 +46,22 @@ function getStudents()
     $result = mysqli_query($conn, $sql);
     return $result;
 }
+function getCurrentStudents($student)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `group_students` inner join groups on groups.id_group = group_students.group_id inner join students on students.id_student=group_students.student_id WHERE `student_id`  = '$student'";
+    $result = mysqli_query($conn, $sql);
+    return $result->fetch_assoc();
+}
+function getStudentsofCG($group)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `group_students` inner join students on group_students.student_id = students.id_student where group_id = '$group' ORDER BY students.surname COLLATE utf8mb4_unicode_ci ASC";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
 function getTeachers()
 {
     global $conn;
@@ -58,7 +74,15 @@ function getGroupsWithTeachers()
 {
     global $conn;
 
-    $sql = "SELECT * FROM `groups` inner join teachers on groups.teacher_id=teachers.id_teacher";
+    $sql = "SELECT * FROM `groups` inner join teachers on `groups`.teacher_id=`teachers`.id_teacher ORDER BY `groups`.`date_of_graduation` DESC";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
+function getCGWithTeachers($group)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `groups` inner join teachers on `groups`.teacher_id=`teachers`.id_teacher WHERE `id_group` LIKE '$group' ORDER BY `groups`.`date_of_graduation` DESC";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
@@ -66,7 +90,7 @@ function getGroupofCS($student)
 {
     global $conn;
 
-    $sql = "SELECT * FROM `group_students` inner join groups on group_students.group_id=groups.id_group where student_id = '$student'";
+    $sql = "SELECT * FROM `group_students` inner join groups on `group_students`.group_id=`groups`.id_group where student_id = '$student'";
     $result = mysqli_query($conn, $sql);
     return $result->fetch_assoc();
 }
@@ -74,7 +98,15 @@ function getResultsOfStudents()
 {
     global $conn;
 
-    $sql = "SELECT * FROM `results_test` inner join students on students.id_student=results_test.student_id order by `id_result` DESC";
+    $sql = "SELECT * FROM `results_test` inner join students on `students`.id_student=`results_test`.student_id order by `id_result` DESC";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
+function getResultsOfCS($student)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `results_test` WHERE `student_id` LIKE '$student'";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
@@ -112,6 +144,14 @@ function getCertificates()
     $sql = "SELECT * FROM `certificates_of_graduation` inner join students on certificates_of_graduation.student_id = students.id_student";
     $result = mysqli_query($conn, $sql);
     return $result;
+}
+function getCertificatesOfCS($student)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `certificates_of_graduation` WHERE `student_id` LIKE '$student'";
+    $result = mysqli_query($conn, $sql);
+    return $result->fetch_assoc();;
 }
 function getYearsOfStudent()
 {
