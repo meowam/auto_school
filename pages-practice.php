@@ -20,36 +20,18 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
                 </thead>
                 <tbody>
                     <?php
-                    $i = 0;
-                    $driving = getListTable('driving');
-                    foreach ($driving as $drive) {
-                        $i++;
-                        if ($drive['student_id'] != null) {
-                            $sql = 'SELECT * FROM `driving` inner join teachers on driving.teacher_id=teachers.id_teacher inner join students on students.id_student=driving.student_id where student_id is NOT NULL';
-                            $id = true;
-                        } else {
-                            $sql = 'SELECT * FROM `driving` inner join teachers on driving.teacher_id=teachers.id_teacher where `student_id` is NULL';
-                            $id = false;
-                        }
-                        $result = mysqli_query($conn, $sql);
+                    $i = 1;
+                    $result = getPracticeDesc();
+                    if ($result) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                        $fullNameInitials = getSNP($row['surname_teacher'], $row['name_teacher'], $row['patronymic_teacher']);
-                        $formatted_date = date('d.m.Y H:i:s', strtotime($row['date_driving']));
+                            list($fullName, $contact) = getFullNameAndContact($row);
                     ?>
                             <tr>
-                                <td><?= $i; ?></td>
-                                <td class="d-none d-xl-table-cell"><?= $fullNameInitials ?></td>
-                                <td class="d-none d-xl-table-cell"><?= $formatted_date?></td>
-                                <?php 
-                                if ($id) {
-                                    echo '<td class="d-none d-md-table-cell">'.$row['surname']." ".$row['name'].'</td>
-                                    <td class="d-none d-md-table-cell">'.$row['telephone'].'</td>';
-                                } else{
-                                    echo '<td class="d-none d-md-table-cell">'.$row['pib'].'</td>
-                                    <td class="d-none d-md-table-cell">'.$row['contact_student'].'</td>';
-                                }
-                                ?>
-
+                                <td><?= $i++; ?></td>
+                                <td class="d-none d-xl-table-cell"><?= getSNP($row['surname_teacher'], $row['name_teacher'], $row['patronymic_teacher']) ?></td>
+                                <td class="d-none d-xl-table-cell"><?= date('d.m.Y H:i:s', strtotime($row['date_driving'])) ?></td>
+                                <td class="d-none d-md-table-cell"><?= $fullName ?></td>
+                                <td class="d-none d-md-table-cell"><?= $contact ?></td>
                             </tr>
                     <?php
                         }

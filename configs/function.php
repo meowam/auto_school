@@ -165,7 +165,7 @@ function getMoneyFromPM()
     return $result;
 }
 
-function getTablesPY($table,$column)
+function getTablesPY($table, $column)
 {
     global $conn;
 
@@ -173,7 +173,7 @@ function getTablesPY($table,$column)
     $result = mysqli_query($conn, $sql);
     return $result;
 }
-function getTablesCY($table,$column)
+function getTablesCY($table, $column)
 {
     global $conn;
 
@@ -181,7 +181,7 @@ function getTablesCY($table,$column)
     $result = mysqli_query($conn, $sql);
     return $result;
 }
-function getPercents($last_year,$current_year)
+function getPercents($last_year, $current_year)
 {
     $class = '';
     $difference = $current_year - $last_year;
@@ -201,4 +201,27 @@ function getSNP($surname, $name, $patronymic)
 
     $fullNameInitials = $surname . ' ' . $nameInitial . '.' . $patronymicInitial . '.';
     return $fullNameInitials;
+}
+function getPracticeDesc()
+{
+    global $conn;
+
+    $sql = 'SELECT d.*, t.surname_teacher, t.name_teacher, t.patronymic_teacher, s.surname, s.name, s.telephone FROM `driving` AS d 
+    INNER JOIN `teachers` AS t ON d.teacher_id = t.id_teacher 
+    LEFT JOIN `students` AS s ON d.student_id = s.id_student ORDER BY d.`date_driving` DESC';
+    $result = mysqli_query($conn, $sql);
+    return $result;
+    
+}
+function getFullNameAndContact($row) {
+    $fullName = '';
+    $contact = '';
+    if ($row['student_id']) {
+        $fullName = $row['surname'] . ' ' . $row['name'];
+        $contact = $row['telephone'];
+    } else {
+        $fullName = $row['pib'];
+        $contact = $row['contact_student'];
+    }
+    return array($fullName, $contact);
 }
