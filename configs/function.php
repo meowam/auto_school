@@ -286,6 +286,41 @@ function getPracticeOfCT($teacher)
     return $result;
     
 }
+function getAvailableTeachers()
+{
+    global $conn;
+
+    $sql = "SELECT * FROM teachers WHERE id_teacher NOT IN ( SELECT teacher_id FROM groups WHERE date_of_graduation > CURDATE() ) ORDER BY surname_teacher ASC";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+    
+}
+function getTableColumnWhere($table,$column,$id)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `$table` WHERE `$column` = '$id'";
+    $result = mysqli_query($conn, $sql);
+    return mysqli_num_rows($result);
+}
+function getTableColumnWhereResult($table,$column,$id)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `$table` WHERE `$column` = '$id'";
+    $result = mysqli_query($conn, $sql);
+    return $result->fetch_assoc();
+}
+function getAvailableGroups()
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `groups` WHERE `date_of_graduation` > CURRENT_DATE";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
+
+
 function getFullNameAndContact($row) {
     $fullName = '';
     $contact = '';

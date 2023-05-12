@@ -1,0 +1,17 @@
+.text-color-gray{
+    color:#4B5258;
+}
+.text-color-gray:hover{
+    color:black;
+}
+.date-group{
+    width: 50%;
+}
+@media (max-width: 576px)  {
+    .date-group{
+        width: 100%;
+    }
+    .div-date-group{
+        flex-direction: column;
+    }
+}

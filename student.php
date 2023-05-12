@@ -2,7 +2,7 @@
 require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 if (!isset($_GET['id'])) {
 	header("location: /pages-student.php");
-} else{
+} else {
 	$student = getCurrentStudents($_GET['id']);
 	$results = getResultsOfCS($_GET['id']);
 	$certificate = getCertificatesOfCS($_GET['id']);
@@ -21,12 +21,15 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 <div class="row">
 	<div class="col-md-6 col-xl-6">
 		<div class="card mb-3">
-		<div class="card-header">
+			<div class="card-header">
 				<h5 class="card-title mb-0"><a href="/pages-group.php?id=<?= $student['id_group'] ?>"><?= $student['name_group'] ?></a></h5>
 			</div>
 			<div class="card-body text-center">
 				<img src="/assets/img/avatars/user.svg" class="img-fluid mb-2" width="128" height="128" />
-				<h5 class="card-title mb-0 mt-3"><?php echo $student['surname'] . ' ' . $student['name'] . ' ' . $student['patronymic'] ?></h5>
+				<div class="d-flex align-items-center justify-content-center m-t-3">
+					<h5 class="card-title mb-0 m-r-10"><?php echo $student['surname'] . ' ' . $student['name'] . ' ' . $student['patronymic'] ?></h5>
+					<a href="/edit/student.php?id=<?= $student['id_student'] ?>" class="text-color-gray m-r-10"><i class="align-middle" data-feather="edit-2"></i></a>
+				</div>
 			</div>
 			<hr class="my-0" />
 			<div class="card-body">
@@ -62,7 +65,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 			</div>
 			<div class="card-body h-100">
 				<?php
-				if (mysqli_num_rows($results)>0) {
+				if (mysqli_num_rows($results) > 0) {
 				?>
 					<div class="d-flex align-items-start">
 						<table class="table table-hover my-0">

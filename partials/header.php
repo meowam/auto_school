@@ -9,6 +9,7 @@
     <title> Автошкола</title>
     <link href="/assets/css/vendors/app.css" rel="stylesheet">
     <link href="/assets/css/util.css" rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 

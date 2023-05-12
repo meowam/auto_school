@@ -58,20 +58,16 @@ $currentPage = $_SERVER['REQUEST_URI'];
                     <i class="align-middle" data-feather="award"></i> <span class="align-middle">Свідоцтва</span>
                 </a>
             </li>
-
-            <li class="sidebar-header">
-                Інструменти
-            </li>
             <li class="sidebar-item <?= comparisonPages('pages-category'); ?>">
                 <a class="sidebar-link" href="/pages-category.php">
                     <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Категорії</span>
                 </a>
             </li>
-            <li class="sidebar-item <?= comparisonPages('pages-sign-up'); ?>">
-                <a class="sidebar-link" href="/pages-sign-up.php">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Cтворити групу</span>
-                </a>
+
+            <li class="sidebar-header">
+                Інструменти
             </li>
+
             <li class="sidebar-item <?= comparisonPages('ui'); ?>">
                 <a class="sidebar-link" href="/ui.php">
                     <i class="align-middle" data-feather="square"></i> <span class="align-middle">UI (прибрати)</span>

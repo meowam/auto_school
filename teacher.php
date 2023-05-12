@@ -2,8 +2,8 @@
 require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 if (!isset($_GET['id'])) {
     header("location: /pages-teacher.php");
-} else{
-     $teacher = getCurrentTeacher($_GET['id']);
+} else {
+    $teacher = getCurrentTeacher($_GET['id']);
     $categories = getCategoriesOfCT($_GET['id']);
     $groups = getGroupsWithCT($_GET['id']);
     $practices = getPracticeOfCT($_GET['id']);
@@ -25,7 +25,10 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
         <div class="card mb-3">
             <div class="card-body text-center">
                 <img src="/assets/img/avatars/user.svg" class="img-fluid mb-2" width="128" height="128" />
-                <h5 class="card-title mb-0 mt-3"><?php echo $teacher['surname_teacher'] . ' ' . $teacher['name_teacher'] . ' ' . $teacher['patronymic_teacher'] ?></h5>
+                <div class="d-flex align-items-center justify-content-center m-t-3">
+                    <h5 class="card-title mb-0 m-r-10"><?php echo $teacher['surname_teacher'] . ' ' . $teacher['name_teacher'] . ' ' . $teacher['patronymic_teacher'] ?></h5>
+                    <a href="/edit/teacher.php?id=<?= $teacher['id_teacher'] ?>" class="text-color-gray m-r-10"><i class="align-middle" data-feather="edit-2"></i></a>
+                </div>
             </div>
             <hr class="my-0" />
             <div class="card-body">
