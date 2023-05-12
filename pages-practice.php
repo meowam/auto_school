@@ -1,4 +1,5 @@
 <?php
+require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 
 ?>
@@ -28,10 +29,10 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
                     ?>
                             <tr>
                                 <td><?= $i++; ?></td>
-                                <td class="d-none d-xl-table-cell"><?= getSNP($row['surname_teacher'], $row['name_teacher'], $row['patronymic_teacher']) ?></td>
+                                <td class="d-none d-xl-table-cell"><a href="/teacher.php?id=<?= $row['teacher_id']; ?>"><?= getSNP($row['surname_teacher'], $row['name_teacher'], $row['patronymic_teacher']) ?></a></td>
                                 <td class="d-none d-xl-table-cell"><?= date('d.m.Y H:i:s', strtotime($row['date_driving'])) ?></td>
                                 <td class="d-none d-md-table-cell"><?= $fullName ?></td>
-                                <td class="d-none d-md-table-cell"><?= $contact ?></td>
+                                <td class="d-none d-md-table-cell"> <?= $contact ?></td>
                             </tr>
                     <?php
                         }

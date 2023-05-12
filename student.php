@@ -1,9 +1,8 @@
 <?php
+require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 if (!isset($_GET['id'])) {
 	header("location: /pages-student.php");
-}
-require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
-if (isset($_GET['id'])) {
+} else{
 	$student = getCurrentStudents($_GET['id']);
 	$results = getResultsOfCS($_GET['id']);
 	$certificate = getCertificatesOfCS($_GET['id']);
@@ -13,6 +12,7 @@ if (($student) == null) {
 }
 $formatted_date = date('d.m.Y', strtotime($student['date_birthday']));
 $formatted_date2 = date('d.m.Y', strtotime($student['date_application']));
+require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 ?>
 
 <div class="mb-3">

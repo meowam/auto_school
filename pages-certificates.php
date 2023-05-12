@@ -1,4 +1,5 @@
 <?php
+require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 $certificates = getCertificates();
 ?>
@@ -27,7 +28,7 @@ $certificates = getCertificates();
                     ?>
                         <tr>
                             <td><?= $i ?></td>
-                            <td class="d-none d-md-table-cell"><?= $fullNameInitials ?></td>
+                            <td class="d-none d-md-table-cell"><a href="/student.php?id=<?= $certificate['id_student']; ?>"><?= $fullNameInitials ?></a></td>
                             <td class="d-none d-xl-table-cell"><?= $certificate['series_of_certificate']; ?></td>
                             <td class="d-none d-xl-table-cell"><?= $formatted_date3; ?></td>
                         </tr>

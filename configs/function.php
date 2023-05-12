@@ -70,6 +70,14 @@ function getTeachers()
     $result = mysqli_query($conn, $sql);
     return $result;
 }
+function getCurrentTeacher($teacher)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `teachers` WHERE `id_teacher` LIKE '$teacher'";
+    $result = mysqli_query($conn, $sql);
+    return $result->fetch_assoc();
+}
 function getGroupsWithTeachers()
 {
     global $conn;
@@ -77,6 +85,14 @@ function getGroupsWithTeachers()
     $sql = "SELECT * FROM `groups` inner join teachers on `groups`.teacher_id=`teachers`.id_teacher ORDER BY `groups`.`date_of_graduation` DESC";
     $result = mysqli_query($conn, $sql);
     return $result;
+}
+function getGroupsWithCT($teacher)
+{
+    global $conn;
+
+    $sql = "SELECT id_group, GROUP_CONCAT(name_group SEPARATOR ', ') as groups FROM `groups` WHERE `teacher_id` = '$teacher' and `date_of_graduation` >CURRENT_TIMESTAMP ORDER BY `groups`.`date_of_graduation` ASC;";
+    $result = mysqli_query($conn, $sql);
+    return $result->fetch_assoc();
 }
 function getCGWithTeachers($group)
 {
@@ -137,11 +153,19 @@ function getCategoriesOfTeachers()
     $result = mysqli_query($conn, $sql);
     return $result;
 }
+function getCategoriesOfCT($teacher)
+{
+    global $conn;
+
+    $sql = "SELECT teacher_id, GROUP_CONCAT(name_category SEPARATOR ', ') as categories FROM teachers_categories INNER JOIN categories ON categories.id_category = teachers_categories.id WHERE teacher_id = '$teacher' GROUP BY teacher_id";
+    $result = mysqli_query($conn, $sql);
+    return $result->fetch_assoc();
+}
 function getCertificates()
 {
     global $conn;
 
-    $sql = "SELECT * FROM `certificates_of_graduation` inner join students on certificates_of_graduation.student_id = students.id_student";
+    $sql = "SELECT * FROM `certificates_of_graduation` inner join students on certificates_of_graduation.student_id = students.id_student ORDER BY `certificates_of_graduation`.`date_of_receipt` DESC";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
@@ -151,7 +175,7 @@ function getCertificatesOfCS($student)
 
     $sql = "SELECT * FROM `certificates_of_graduation` WHERE `student_id` LIKE '$student'";
     $result = mysqli_query($conn, $sql);
-    return $result->fetch_assoc();;
+    return $result->fetch_assoc();
 }
 function getYearsOfStudent()
 {
@@ -249,6 +273,15 @@ function getPracticeDesc()
     $sql = 'SELECT d.*, t.surname_teacher, t.name_teacher, t.patronymic_teacher, s.surname, s.name, s.telephone FROM `driving` AS d 
     INNER JOIN `teachers` AS t ON d.teacher_id = t.id_teacher 
     LEFT JOIN `students` AS s ON d.student_id = s.id_student ORDER BY d.`date_driving` DESC';
+    $result = mysqli_query($conn, $sql);
+    return $result;
+    
+}
+function getPracticeOfCT($teacher)
+{
+    global $conn;
+
+    $sql = "SELECT d.*, t.surname_teacher, t.name_teacher, t.patronymic_teacher, s.surname, s.name, s.telephone FROM `driving` AS d INNER JOIN `teachers` AS t ON d.teacher_id = t.id_teacher LEFT JOIN `students` AS s ON d.student_id = s.id_student where `teacher_id` = '$teacher'and MONTH(`date_driving`) = MONTH(CURRENT_TIMESTAMP) ORDER BY d.`date_driving` DESC";
     $result = mysqli_query($conn, $sql);
     return $result;
     

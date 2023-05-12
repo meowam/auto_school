@@ -80,7 +80,7 @@
                     <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"> <span class="text-dark"><?= $user['username'];?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="pages-profile.php"><i class="align-middle me-1" data-feather="user"></i> Профіль</a>
+                    <a class="dropdown-item" href="/pages-teacher.php"><i class="align-middle me-1" data-feather="user"></i> Викладачі</a>
                     <a class="dropdown-item" href="/index.php"><i class="align-middle me-1" data-feather="pie-chart"></i> Аналітика</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/scripts/logout.php">Вийти</a>

@@ -1,15 +1,3 @@
-<?php
-require($_SERVER['DOCUMENT_ROOT'] . '/configs/db.php');
-if (isset($_SESSION["user_id"])) {
-    if (isAuth()) {
-        $user = getCurrentUser();
-    } else {
-        header("location: /login.php");
-    }
-} else{
-    header("location: /login.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +8,7 @@ if (isset($_SESSION["user_id"])) {
     <link rel="shortcut icon" href="/assets/img/icon.svg" />
     <title> Автошкола</title>
     <link href="/assets/css/vendors/app.css" rel="stylesheet">
+    <link href="/assets/css/util.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 

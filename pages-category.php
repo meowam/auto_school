@@ -1,4 +1,5 @@
 <?php
+require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 $categories = getCategoriesOfTeachers();
 ?>
@@ -14,7 +15,6 @@ $categories = getCategoriesOfTeachers();
                         <th>№</th>
                         <th class="d-none d-xl-table-cell">Назва категорії</th>
                         <th class="d-none d-xl-table-cell">Викладачі</th>
-
                     </tr>
                 </thead>
                 <tbody>

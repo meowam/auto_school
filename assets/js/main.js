@@ -39,6 +39,7 @@ $(document).ready(function () {
     });
   });
 });
+
 document.addEventListener("DOMContentLoaded", function () {
   let ageCounts = document.querySelectorAll('.age-count');
   let data = [];
@@ -131,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  let peopleCounts = document.querySelectorAll('.people-count');  
+  let peopleCounts = document.querySelectorAll('.people-count');
   let dataPeople = [];
   peopleCounts.forEach(function (peopleCount) {
     dataPeople.push(peopleCount.textContent);

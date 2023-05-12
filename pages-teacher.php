@@ -1,4 +1,5 @@
 <?php
+require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 $teachers = getTeachers();
 ?>
@@ -29,7 +30,7 @@ $teachers = getTeachers();
                     ?>
                         <tr>
                             <td><?= $i; ?> </td>
-                            <td class="d-none d-xl-table-cell"><a href="/student.php"><?= $fullNameInitials ?></a></td>
+                            <td class="d-none d-xl-table-cell"><a href="/teacher.php?id=<?= $teacher['id_teacher']; ?>"><?= $fullNameInitials ?></a></td>
                             <td class="d-none d-xl-table-cell"><?= $formatted_date;?></td>
                             <td class="d-none d-xl-table-cell"><?= $teacher['telephone_teacher'];?></td>
                             <td class="d-none d-md-table-cell"><?= $teacher['email_teacher'];?></td>

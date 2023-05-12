@@ -1,4 +1,5 @@
 <?php
+require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 $results = getResultsOfStudents();
 ?>
@@ -38,7 +39,7 @@ $results = getResultsOfStudents();
                     ?>
                         <tr>
                             <td><?= $i; ?></td>
-                            <td class="d-none d-xl-table-cell"><?= $fullNameInitials ?></td>
+                            <td class="d-none d-xl-table-cell"><a href="/student.php?id=<?= $result['id_student']; ?>"><?= $fullNameInitials ?></a></td>
                             <td class="d-none d-md-table-cell"><?= $group['name_group']; ?></td>
                             <td class="d-none d-xl-table-cell text-center"><?= $formatted_date; ?></td>
                             <td class="d-none d-xl-table-cell text-center"><?= $result['score_result']; ?></td>

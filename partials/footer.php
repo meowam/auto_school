@@ -8,7 +8,6 @@
                     <a class="text-muted" ><strong> 2023</strong> &copy; </a> 
                 </p>
             </div>
-            
         </div>
     </div>
 </footer>

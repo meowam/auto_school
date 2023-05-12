@@ -1,9 +1,9 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 if (!isset($_GET['id'])) {
     header("location: /pages-group.php?id=all");
-} else {
-    if ($_GET['id'] == 'all') {
+}else{
+     if ($_GET['id'] == 'all') {
         $groups = getGroupsWithTeachers();
         $cg = true;
     } else {
@@ -14,7 +14,7 @@ if (!isset($_GET['id'])) {
 if (mysqli_num_rows($groups) == 0) {
     header("location: /pages-group.php?id=all");
 }
-
+require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
 ?>
 <div class="row">
     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
@@ -60,7 +60,7 @@ if (mysqli_num_rows($groups) == 0) {
                                 <td class="d-none d-xl-table-cell"><?= $formatted_date; ?></td>
                                 <td class="d-none d-xl-table-cell"><?= $formatted_date2; ?></td>
                                 <td><span class="badge bg-<?= $class ?>"><?= $text; ?></span></td>
-                                <td class="d-none d-md-table-cell"><?= $fullNameInitials ?></td>
+                                <td class="d-none d-md-table-cell"><a href="/teacher.php?id=<?= $group['id_teacher']; ?>"><?= $fullNameInitials ?> </a></td>
                             </tr>
                         <?php
                         }
@@ -73,12 +73,11 @@ if (mysqli_num_rows($groups) == 0) {
 
             while ($row = mysqli_fetch_assoc($groups)) {
                 $students = getStudentsofCG($row['id_group']);
-
             ?>
                 <div class="card flex-fill">
                     <div class="card-header d-flex justify-content-between" style="padding: 16px;">
                         <h5 class="card-title mb-0"><?= $row['name_group'] ?></h5>
-                        <h5 class="card-title mb-0">Куратор: <a href="/teacher.php?id=<?= $row['id_teacher']; ?>"> <?= $row['surname_teacher'].' '.$row['name_teacher'] ?></a></h5>
+                        <h5 class="card-title mb-0">Куратор: <a href="/teacher.php?id=<?= $row['id_teacher']; ?>"> <?= $row['surname_teacher'] . ' ' . $row['name_teacher'] ?></a></h5>
                     </div>
                     <?php
                     if (mysqli_num_rows($students) > 0) {
