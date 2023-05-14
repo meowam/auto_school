@@ -14,13 +14,14 @@ $certificates = getCertificates();
                     <tr>
                         <th>№</th>
                         <th>Студент</th>
-                        <th class="d-none d-xl-table-cell">Серія свідоцтва</th>
+                        <th class="d-xl-table-cell">Серія свідоцтва</th>
                         <th>Отримав свідоцтво</th>
+                        <th>Дія</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $i=0;
+                    $i = 0;
                     foreach ($certificates as $certificate) {
                         $i++;
                         $fullNameInitials = getSNP($certificate['surname'], $certificate['name'], $certificate['patronymic']);
@@ -29,8 +30,12 @@ $certificates = getCertificates();
                         <tr>
                             <td><?= $i ?></td>
                             <td class="d-none d-md-table-cell"><a href="/student.php?id=<?= $certificate['id_student']; ?>"><?= $fullNameInitials ?></a></td>
-                            <td class="d-none d-xl-table-cell"><?= $certificate['series_of_certificate']; ?></td>
-                            <td class="d-none d-xl-table-cell"><?= $formatted_date3; ?></td>
+                            <td class="d-xl-table-cell"><?= $certificate['series_of_certificate']; ?></td>
+                            <td class="d-xl-table-cell"><?= $formatted_date3; ?></td>
+                            <td class="d-xl-table-cell">
+                                <a href="/delete/deleteCertificate.php?id=<?= $certificate['id_certificate'] ?>" class="text-color-gray">
+                                    <i class="align-middle" data-feather="trash-2"></i></a>
+                            </td>
                         </tr>
                     <?php
                     }

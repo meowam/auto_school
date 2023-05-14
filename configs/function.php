@@ -169,6 +169,14 @@ function getCertificates()
     $result = mysqli_query($conn, $sql);
     return $result;
 }
+function getLastIdByTable($column,$table)
+{
+    global $conn;
+
+    $sql = "SELECT MAX($column) AS last_id FROM $table";
+    $result = mysqli_query($conn, $sql);
+    return $result->fetch_assoc();
+}
 function getCertificatesOfCS($student)
 {
     global $conn;

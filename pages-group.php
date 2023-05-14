@@ -22,7 +22,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
         if ($cg) {
         ?>
             <div class="card flex-fill">
-                <div class="card-header d-flex align-items-center">
+                <div class="card-header d-flex align-items-end">
                     <a href="/create/group.php" class="text-color-gray m-r-4">
                         <i class="align-middle" data-feather="plus-square"></i>
                     </a>

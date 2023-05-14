@@ -7,7 +7,7 @@ $results = getResultsOfStudents();
     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
         <div class="card flex-fill">
             <div class="card-header">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-end">
                     <a href="/create/result.php" class="text-color-gray m-r-4">
                         <i class="align-middle" data-feather="plus-square"></i>
                     </a>

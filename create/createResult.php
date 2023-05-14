@@ -4,8 +4,19 @@ if (!empty($_POST)) {
     $result = mysqli_real_escape_string($conn, $_POST['result']);
     $student_id = $_POST['student_id'];
     $date = $_POST['date'];
+
     if ($result >= 18) {
         $status = 1;
+        $numRows = getLastIdByTable('id_certificate','certificates_of_graduation');
+        $numRows['last_id']++;
+        $str = 'AO 00000';
+        $str = substr_replace($str, $numRows['last_id'], -strlen($numRows['last_id']));
+        $str = str_pad($str, 5, '0', STR_PAD_LEFT);
+
+        $sql = "INSERT INTO `certificates_of_graduation` (`student_id`, `date_of_receipt`, `series_of_certificate`) 
+        VALUES ( '$student_id', '$date', '$str')";
+
+        mysqli_query($conn, $sql);
     } else {
         $status = 0;
     }

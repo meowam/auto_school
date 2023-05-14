@@ -38,6 +38,20 @@ $(document).ready(function () {
       }
     });
   });
+
+
+  $('#student_id').change(function () {
+    $('#name_surname, #contacts-student').val('');
+    if ($(this).val() !== "00") {
+      $('label[for="name_surname"], label[for="contacts-student"]').hide();
+      $('#name_surname, #contacts-student').hide();
+    } else {
+      $('label[for="name_surname"], label[for="contacts-student"]').show();
+      $('#name_surname, #contacts-student').show();
+    }
+  });
+
+
 });
 
 document.addEventListener("DOMContentLoaded", function () {
