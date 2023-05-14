@@ -1,7 +1,29 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
-$results = getResultsOfStudents();
+
+$range = 6;
+$rowsperpage = 6;
+
+$sql = 'SELECT COUNT(*) FROM results_test';
+
+[$numrows] = getCountOfTable($sql);
+$totalpages = ceil($numrows / $rowsperpage);
+if (isset($_GET['curr_p']) && is_numeric($_GET['curr_p'])) {
+    $curr_p = (int) $_GET['curr_p'];
+} else {
+    $curr_p = 1;
+}
+
+if ($curr_p > $totalpages) {
+    $curr_p = $totalpages;
+}
+if ($curr_p < 1) {
+    $curr_p = 1;
+}
+
+$offset = ($curr_p - 1) * $rowsperpage;
+$results = getResultsOfStudents($offset, $rowsperpage);
 ?>
 <div class="row">
     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
@@ -61,6 +83,10 @@ $results = getResultsOfStudents();
                     ?>
                 </tbody>
             </table>
+
+            <?php
+            require($_SERVER['DOCUMENT_ROOT'] . '/configs/pagination.php');
+            ?>
         </div>
     </div>
 

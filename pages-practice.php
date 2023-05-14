@@ -1,7 +1,28 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . '/configs/check-auth.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
+$range = 6;
+$rowsperpage = 12;
 
+$sql = 'SELECT COUNT(*) FROM driving';
+
+[$numrows] = getCountOfTable($sql);
+$totalpages = ceil($numrows / $rowsperpage);
+if (isset($_GET['curr_p']) && is_numeric($_GET['curr_p'])) {
+    $curr_p = (int) $_GET['curr_p'];
+} else {
+    $curr_p = 1;
+}
+
+if ($curr_p > $totalpages) {
+    $curr_p = $totalpages;
+}
+if ($curr_p < 1) {
+    $curr_p = 1;
+}
+
+$offset = ($curr_p - 1) * $rowsperpage;
+$result = getPracticeDesc($offset, $rowsperpage);
 ?>
 <div class="row">
     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
@@ -29,8 +50,8 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
                 <tbody>
                     <?php
                     $i = 1;
-                    $result = getPracticeDesc();
-                  
+
+
                     if ($result) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             list($fullName, $contact) = getFullNameAndContact($row);
@@ -53,6 +74,9 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
                     ?>
                 </tbody>
             </table>
+            <?php
+            require($_SERVER['DOCUMENT_ROOT'] . '/configs/pagination.php');
+            ?>
         </div>
     </div>
 

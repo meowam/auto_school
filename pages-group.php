@@ -79,6 +79,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/partials/header.php');
                         ?>
                     </tbody>
                 </table>
+                
             </div>
             <?php
         } else {

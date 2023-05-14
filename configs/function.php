@@ -29,7 +29,13 @@ function getCurrentUser()
         return null;
     }
 }
-
+function getCountOfTable($sql)
+{
+    global $conn;
+    $result = mysqli_query($conn, $sql);
+    $r = mysqli_fetch_row($result);
+    return $r;
+}
 function getListTable($table)
 {
     global $conn;
@@ -43,6 +49,14 @@ function getStudents()
     global $conn;
 
     $sql = "SELECT * FROM students ORDER BY surname COLLATE utf8mb4_unicode_ci ASC";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
+function getStudentsLimit($min, $max)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM students ORDER BY surname COLLATE utf8mb4_unicode_ci ASC  LIMIT $min,$max";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
@@ -110,14 +124,15 @@ function getGroupofCS($student)
     $result = mysqli_query($conn, $sql);
     return $result->fetch_assoc();
 }
-function getResultsOfStudents()
+function getResultsOfStudents($min, $max)
 {
     global $conn;
 
-    $sql = "SELECT * FROM `results_test` inner join students on `students`.id_student=`results_test`.student_id order by `id_result` DESC";
+    $sql = "SELECT * FROM `results_test` inner join students on `students`.id_student=`results_test`.student_id order by `id_result` DESC LIMIT $min,$max";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
+
 function getResultsOfCS($student)
 {
     global $conn;
@@ -130,7 +145,7 @@ function getCategoriesOfTeachers()
 {
     global $conn;
 
-    $sql = "SELECT categories.name_category AS category, 
+    $sql = "SELECT categories.name_category AS category, categories.`id_category`,
     GROUP_CONCAT(
       CONCAT(
         teachers.surname_teacher, ' ', 
@@ -161,11 +176,27 @@ function getCategoriesOfCT($teacher)
     $result = mysqli_query($conn, $sql);
     return $result->fetch_assoc();
 }
+function getCategories($category)
+{
+    global $conn;
+
+    $sql = "SELECT DISTINCT(`name_category`),`id_category` FROM `categories` inner join teachers_categories on teachers_categories.category_id = categories.id_category where categories.id_category like '$category'";
+    $result = mysqli_query($conn, $sql);
+    return $result->fetch_assoc();
+}
 function getCertificates()
 {
     global $conn;
 
     $sql = "SELECT * FROM `certificates_of_graduation` inner join students on certificates_of_graduation.student_id = students.id_student ORDER BY `certificates_of_graduation`.`date_of_receipt` DESC";
+    $result = mysqli_query($conn, $sql);
+    return $result;
+}
+function getTeachersByCategory($category)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM `categories` inner join teachers_categories on teachers_categories.category_id = categories.id_category INNER JOIN teachers on teachers.id_teacher = teachers_categories.teacher_id where teachers_categories.category_id like '$category'";
     $result = mysqli_query($conn, $sql);
     return $result;
 }
@@ -274,13 +305,13 @@ function getSNP($surname, $name, $patronymic)
     $fullNameInitials = $surname . ' ' . $nameInitial . '.' . $patronymicInitial . '.';
     return $fullNameInitials;
 }
-function getPracticeDesc()
+function getPracticeDesc($min,$max)
 {
     global $conn;
 
-    $sql = 'SELECT d.*, t.surname_teacher, t.name_teacher, t.patronymic_teacher, s.surname, s.name, s.telephone FROM `driving` AS d 
+    $sql = "SELECT d.*, t.surname_teacher, t.name_teacher, t.patronymic_teacher, s.surname, s.name, s.telephone FROM `driving` AS d 
     INNER JOIN `teachers` AS t ON d.teacher_id = t.id_teacher 
-    LEFT JOIN `students` AS s ON d.student_id = s.id_student ORDER BY d.`date_driving` DESC';
+    LEFT JOIN `students` AS s ON d.student_id = s.id_student ORDER BY d.`date_driving` DESC LIMIT $min,$max";
     $result = mysqli_query($conn, $sql);
     return $result;
     
